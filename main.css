@@ -1,0 +1,16 @@
+.filter-ele{
+	border: 1px solid #ccc;
+	padding: 5px;
+	margin-bottom: 5px;
+	width: 200px;
+	display: flex;
+	justify-content: space-between;
+}
+.filter-ele__label{
+	font-weight: bold;
+	text-transform: capitalize;
+	
+}
+.filter-ele__text{
+	
+}
