@@ -5,7 +5,9 @@ void function() {
     var pool = [],
         wrap = document.getElementById('wrap'),
         filters = {},
+        result = document.getElementById('result'),
         map = {};
+
 
     var FilterEle = function(data) {       
         var me = this;
@@ -111,10 +113,14 @@ void function() {
     map = genMap();
     genDom(map);
     setTimeout(function() {
-        console.time('mapping');
+
+        var start = window.performance.now();
         genTotal(pool, map);
         updateFilters(filters, map);
-        console.timeEnd('mapping');
-    }, 3000);
+        var end = window.performance.now();
+        var time = (end - start) >>> 0;
+        result.innerHTML = time + ' ms';
+        
+    }, 2000);
     
 }();
