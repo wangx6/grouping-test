@@ -1,8 +1,26 @@
 body{
 	font-family: Arial;
 }
-#result{
+#wrap{
+	display: flex;
+}
 
+#config-panel{
+	border: 3px solid #ccc;
+	width: 300px;
+	margin-left: 20px;
+	padding: 20px;
+	flex-grow: 1;
+}
+
+.config-wrap{
+	display: flex;
+	margin-bottom: 20px;
+}
+.config-wrap div {
+	width: 50%;
+}
+#result{
 	border: 3px solid #ccc;
 	padding: 10px;
 	color: #09c;
@@ -18,7 +36,6 @@ body{
 .filter-ele__label{
 	font-weight: bold;
 	text-transform: capitalize;
-	
 }
 .filter-ele__text{
 	

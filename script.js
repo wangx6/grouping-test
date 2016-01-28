@@ -4,10 +4,27 @@ void function() {
 
     var pool = [],
         wrap = document.getElementById('wrap'),
+        panel = document.getElementById('panel'),
+        configPanel = document.getElementById('config-panel'),
         filters = {},
         result = document.getElementById('result'),
-        map = {};
+        map = {},
+        conf;
 
+    conf = (function() {
+        //config
+        var numOfFilters = 50;
+        var numOfFields  = numOfFilters + 10;
+        var numOfCars = 2000;
+        var totalIterations = numOfCars * numOfFields;
+
+        return {
+            numOfFilters: numOfFilters,
+            numOfFields: numOfFields,
+            numOfCars: numOfCars,
+            totalIterations: totalIterations
+        };
+    })();
 
     var FilterEle = function(data) {       
         var me = this;
@@ -57,12 +74,11 @@ void function() {
             frag.appendChild(fe.getWrap());
             filters[i] = fe;
         }
-        wrap.appendChild(frag);
+        panel.appendChild(frag);
     }
 
-    function genMap() {
+    function genMap( num ) {
         var map = {};
-        var num = 50;
         for (var i = 0; i < num; i++) {
             map[i + '-' + genVal()] = 0;
         }
@@ -88,12 +104,12 @@ void function() {
         console.log(c);
     }
 
-    function genPool() {
+    function genPool(numOfCars, numOfFields) {
         var pool = [];
         var temp = {};
-        for (var i = 0; i < 222; i++) {
+        for (var i = 0; i < numOfCars; i++) {
             temp = {};
-            for (var j = 0; j < 50; j++) {
+            for (var j = 0; j < numOfFields; j++) {
                 temp[j] = genVal();
             }
             pool.push(temp);
@@ -109,9 +125,21 @@ void function() {
         }
     }
 
-    pool = genPool(pool);
-    map = genMap();
+    pool = genPool(conf.numOfCars, conf.numOfFields);
+    map = genMap(conf.numOfFilters);
     genDom(map);
+
+    function showConfig( conf ) {
+        configPanel.innerHTML = [
+            '<div class="config-wrap"><div>Number Of Cars :</div> <div>'+ conf.numOfCars +'</div></div>',
+            '<div class="config-wrap"><div>Number Of Fields: </div><div>'+ conf.numOfFields +'</div></div>',
+            '<div class="config-wrap"><div>Number of Filters: </div><div>'+ conf.numOfFilters +'</div></div>',
+            '<div class="config-wrap"><div>Total Iterations: </div><div>'+ conf.totalIterations +'</div></div>'
+        ].join('');
+    }
+
+    showConfig(conf);
+
     setTimeout(function() {
 
         var start = window.performance.now();
